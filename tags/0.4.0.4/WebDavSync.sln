@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSync", "WebDavSync\WebDavSync.csproj", "{9C4621DA-7188-426F-9A66-154FA544101E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSyncConsole", "WebDavSyncConsole\WebDavSyncConsole.csproj", "{AE593A30-C45E-4F5E-BF47-09BAA54AD44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSyncWPFGUI", "WebDavSyncWPFGUI\WebDavSyncWPFGUI.csproj", "{212ADCC0-E775-4BA8-AAE8-8F3042395A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSyncGUI", "WebDavSyncGUI\WebDavSyncGUI.csproj", "{48AF824D-E9D6-437B-810A-3C057CE4AE89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSyncTest", "WebDavSyncTest\WebDavSyncTest.csproj", "{325B8C3B-17B5-43DF-8EBA-4D291197083F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8CC920D-92C6-4EB6-8AED-5544BA04960C}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		WebDavSync.vsmdi = WebDavSync.vsmdi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Log4Net", "Log4Net", "{CD553632-F6C0-4D5A-B85F-E4C056E9DED2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WebDavSync_SetupVS2008", "WebDavSync_SetupVS2008\WebDavSync_SetupVS2008.vdproj", "{60A2D4C6-8068-4E04-93FB-BC69DCFD8BB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE593A30-C45E-4F5E-BF47-09BAA54AD44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE593A30-C45E-4F5E-BF47-09BAA54AD44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE593A30-C45E-4F5E-BF47-09BAA54AD44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE593A30-C45E-4F5E-BF47-09BAA54AD44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{212ADCC0-E775-4BA8-AAE8-8F3042395A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{212ADCC0-E775-4BA8-AAE8-8F3042395A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{212ADCC0-E775-4BA8-AAE8-8F3042395A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{212ADCC0-E775-4BA8-AAE8-8F3042395A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325B8C3B-17B5-43DF-8EBA-4D291197083F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325B8C3B-17B5-43DF-8EBA-4D291197083F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325B8C3B-17B5-43DF-8EBA-4D291197083F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325B8C3B-17B5-43DF-8EBA-4D291197083F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A2D4C6-8068-4E04-93FB-BC69DCFD8BB5}.Debug|Any CPU.ActiveCfg = Debug
+		{60A2D4C6-8068-4E04-93FB-BC69DCFD8BB5}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

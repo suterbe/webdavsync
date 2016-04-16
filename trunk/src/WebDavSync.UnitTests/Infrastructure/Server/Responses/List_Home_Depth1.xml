@@ -1,0 +1,30 @@
+﻿<a:multistatus xmlns:b="urn:uuid:c2f41010-65b3-11d1-a29f-00aa00c14882/" xmlns:c="xml:" xmlns:a="DAV:">
+  <a:response>
+    <a:href>http://localhost:8394/Home/</a:href>
+    <a:propstat>
+      <a:status>HTTP/1.1 200 OK</a:status>
+      <a:prop>
+        <a:displayname>Home</a:displayname>
+        <a:iscollection b:dt="boolean">1</a:iscollection>
+        <a:getlastmodified b:dt="dateTime.rfc1123">Tue, 19 Apr 2011 15:23:10 GMT</a:getlastmodified>
+        <a:getcontenttype>text/plain</a:getcontenttype>
+        <a:getcontentlength b:dt="int">0</a:getcontentlength>
+        <a:creationdate b:dt="dateTime.rfc1123">Tue, 19 Apr 2011 15:23:10 GMT</a:creationdate>
+      </a:prop>
+    </a:propstat>
+  </a:response>
+  <a:response>
+    <a:href>http://localhost:8394/Home/Readme.txt</a:href>
+    <a:propstat>
+      <a:status>HTTP/1.1 200 OK</a:status>
+      <a:prop>
+        <a:displayname>Readme.txt</a:displayname>
+        <a:iscollection b:dt="boolean">0</a:iscollection>
+        <a:getlastmodified b:dt="dateTime.rfc1123">Tue, 19 Apr 2011 19:24:23 GMT</a:getlastmodified>
+        <a:getcontenttype>text/plain</a:getcontenttype>
+        <a:getcontentlength b:dt="int">42</a:getcontentlength>
+        <a:creationdate b:dt="dateTime.rfc1123">Tue, 19 Apr 2011 19:24:23 GMT</a:creationdate>
+      </a:prop>
+    </a:propstat>
+  </a:response>
+</a:multistatus>

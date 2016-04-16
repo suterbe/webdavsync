@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright 2011
+ *    Benjamin Suter
+ *    Reto Inderbitzin, phiNdus.ch
+ *
+ * CHANGELOG
+ *    08.04.2011/Inder:
+ *      - Created
+ *
+ *    21.04.2011/Inder:
+ *      - PartCovers Include-Pattern changed
+ *      - Include directory for UnitTests assembly changed
+ *      - Copy task for unit test server responses added
+ *
+ *    06.05.2011/Inder:
+ *      - Added init-part-cover-task
+ *
+-->
+<project name="WebDavSync" default="help">
+  <property name="verbose" value="false" />
+  <property name="build.number" value="0.0.0.0" overwrite="false" />
+  
+  <property name="platform" value="anycpu" />
+  <property name="machine" value="${dns::get-host-name()}" />
+  
+  <!--
+    Base directories
+  -->
+  <property name="base.dir" value="." />
+  <property name="config.dir" value="${base.dir}/config" />
+  <property name="src.dir" value="${base.dir}/src" />
+  <property name="target.dir" value="${base.dir}/build" />
+  <property name="tmp.dir" value="${base.dir}/tmp" />
+  <property name="tools.dir" value="${base.dir}/tools" />
+  
+  <!--
+    Target directories
+  -->
+  <property name="bin.dir" value="${target.dir}/bin" />
+  <property name="dist.dir" value="${target.dir}/dist" />
+  <property name="reports.dir" value="${target.dir}/reports" />
+  <property name="test.dir" value="${target.dir}/test" />
+  
+  <!--
+    Tools directories
+  -->
+  <property name="nunit.dir" value="${tools.dir}/nunit" />
+  <property name="rhino.dir" value="${tools.dir}/Rhino.Mocks" />
+  <property name="partcover.dir" value="${tools.dir}/PartCover" />
+  <property name="reportgenerator.dir" value="${tools.dir}/ReportGenerator" />
+  <property name="nantcontrib.dir" value="${tools.dir}/nantcontrib" />
+  <property name="corflags.dir" value="${tools.dir}" />
+  <property name="fxcop.dir" value="${tools.dir}/FxCop" />
+  
+  <!--
+    Include property files:
+      1. Default build properties
+      2. Based on machine name. This is important for TeamCity Build Agents.
+      3. Local properties: Don't but this file under version control
+         Use Default.build.properties as template for your dev env
+  -->
+  <include buildfile="Default.build.properties" verbose="true" />
+  <include buildfile="${machine + '.build.properties'}" if="${file::exists(machine + '.build.properties')}" verbose="true" />
+  <include buildfile="Local.build.properties" if="${file::exists('Local.build.properties')}" verbose="true" />  
+  
+  <!--
+    Prepare nant/nant contrib
+  -->
+  <loadtasks assembly="${nantcontrib.dir}/NAnt.Contrib.Tasks.dll" />
+  
+  <!--
+    TARGET: CLEAN
+  -->
+  <target name="clean">
+    <delete dir="${target.dir}" verbose="${verbose}" />
+    <delete dir="${tmp.dir}" verbose="${verbose}" />
+  </target>
+  
+  <!--
+    TARGET: INIT
+  -->
+  <target name="init" depends="clean">
+    <mkdir dir="${target.dir}" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}/Coverage" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}/NUnit" verbose="${verbose}" />
+    <mkdir dir="${tmp.dir}" verbose="${verbose}" />
+  </target>
+  
+  
+  <target name="generate-assembly-info">
+    <copy file="${config.dir}/AssemblyInfo.cs.template"
+      tofile="${assembly.info.dest}" overwrite="true">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target>
+  
+  <!--
+    TARGET: COMPILE
+  -->
+  <target name="compile" depends="init">
+    <!-- Core -->
+    <property name="assembly.title" value="WebDavSync-Core" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="4dd3a6a8-9139-4f9a-8ec3-4e85193d71d6" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <!-- Core - Release -->
+    <csc target="library" output="${bin.dir}/WebDavSync.Core.dll" debug="false" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/WebDavSync/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    
+    <!-- Core - Debug / Test -->
+    <csc target="library" output="${test.dir}/WebDavSync.Core.dll" debug="true" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/WebDavSync/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    
+    <!-- WinForms -->
+    <property name="assembly.title" value="WebDavSync-WinForms" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="8336143b-2d7d-47ce-a718-0ccf25768f2d" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <!-- WinForms - Release -->
+    <csc target="winexe" output="${bin.dir}/${project::get-name()}.exe" debug="false" verbose="${verbose}" platform="${platform}"
+      main="WebDavSyncGUI.Program"
+      win32icon="${src.dir}/WebDavSyncGui/Icons/Download.ico"
+    >
+      <sources>
+        <include name="${src.dir}/WebDavSyncGUI/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <resources>
+        <include name="${src.dir}/WebDavSyncGUI/**/*.resx" />
+      </resources>
+      <references>
+        <include name="${bin.dir}/WebDavSync.Core.dll" />
+      </references>
+    </csc>
+
+    <property name="assembly.title" value="WebDavSync-Core-UnitTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="dad10b14-39cd-498c-9ad9-8c34e3c71bb0" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/WebDavSync.Core.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/WebDavSync.UnitTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${rhino.dir}/Rhino.Mocks.dll" />
+        <include name="${test.dir}/WebDavSync.Core.dll" />
+      </references>
+    </csc>
+  </target>
+  
+  <target name="generate-app-config">
+    <copy file="${config.dir}/App.config.template"
+      tofile="${app.config.dest}" overwrite="true">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target> 
+    
+  <target name="init-unit-test">
+    <copy file="${nunit.dir}/nunit.framework.dll" todir="${test.dir}" />
+    <copy file="${rhino.dir}/Rhino.Mocks.dll" todir="${test.dir}" />
+    
+    <copy todir="${test.dir}">
+      <fileset basedir="${src.dir}/WebDavSync.UnitTests">
+        <include name="Infrastructure/Server/Responses/*.xml" />
+      </fileset>
+    </copy>
+  </target>
+  
+  <!--
+    TARGET: UNIT-TEST
+  -->
+  <target name="unit-test" depends="compile init-unit-test init-part-cover">
+    <property name="tmp.partcover.xml.reports" value="" />
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${test.dir}/*.UnitTests.dll" />
+        </items>
+      </in>
+      <do>
+        <!-- Launch PartCover with NUnit -->
+        <exec program="${partcover.dir}/PartCover.exe"
+            commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [WebDavSync*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
+          
+        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />
+        <echo message="##teamcity[importData type='dotNetCoverage' tool='partcover' path='${reports.dir}/${path::get-file-name(filename)}-Coverage.xml' partcover_report_xslts='tools/PartCover/xslt/Coverage.xslt=>${path::get-file-name(filename)}-Coverage.html']" />
+          
+        <if test="${tmp.partcover.xml.reports != ''}">
+          <property name="partcover.xml.reportes" value="${tmp.partcover.xml.reports};" />
+        </if>
+        <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
+          
+        <nunit2report todir="${reports.dir}/NUnit">
+          <fileset>
+            <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
+      </do>
+    </foreach>
+    <delete file="${base.dir}/partcover.driver.log" />
+    
+    <if test="${tmp.partcover.xml.reports != ''}">
+      <exec program="${reportgenerator.dir}/ReportGenerator.exe"
+        commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
+      <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
+    </if>
+  </target>
+  
+  <!--
+    TARGET: FXCOP
+  -->
+  <target name="fxcop" depends="compile">
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${bin.dir}/*.dll" />
+        </items>
+      </in>
+      <do>
+        <exec program="${fxcop.dir}/FxCopCmd.exe"
+          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot;"
+        />
+        <echo message="##teamcity[importData type='FxCop' path='${reports.dir}/${path::get-file-name(filename)}-FxCop.xml']" />
+      </do>
+    </foreach>
+  </target>
+  
+  <!--
+    TARGET: PACKAGE
+  -->  
+  <target name="package" depends="unit-test fxcop">
+    <!-- Binaries -->
+    <zip zipfile="${dist.dir}/WebDavSync-${build.number}-bin.zip">
+      <fileset basedir="${bin.dir}">
+        <include name="**/*" />
+      </fileset>
+    </zip>
+    
+    <!-- Source -->
+    <zip zipfile="${dist.dir}/WebDavSync-${build.number}-src.zip">
+      <fileset basedir="${base.dir}">
+        <exclude name="${target.dir}/**/*" />
+        <exclude name="**/_ReSharper*/**/*" />
+        <exclude name="**/bin/**" />
+        <exclude name="**/obj/**" />
+        <exclude name="**/Properties/**" />
+        <exclude name="**/*.user" />
+        <include name="**/*" />
+      </fileset>
+    </zip>
+  </target>  
+  
+  <target name="init-part-cover">
+    <exec program="${corflags.dir}/CorFlags.exe"
+      commandline="&quot;${partcover.dir}/PartCover.exe&quot; /32BIT+ /Force /nologo" />
+    <!--
+    <exec program="${corflags.dir}/CorFlags.exe"
+      commandline="&quot;${partcover.dir}/PartCover.Browser.exe&quot; /32BIT+ /Force /nologo" />      
+    -->
+    <regasm>
+      <assemblies>
+        <include name="${partcover.dir}/PartCover.exe" />
+        <include name="${partcover.dir}/PartCover.Browser.exe" />
+  
+        <include name="${partcover.dir}/Interop.PartCover.dll" />
+        <include name="${partcover.dir}/PartCover.dll" />
+        <include name="${partcover.dir}/PartCover.CorDriver.dll" />
+        <include name="${partcover.dir}/PartCover.Framework.dll" />
+      </assemblies>
+    </regasm>
+  </target>
+</project>

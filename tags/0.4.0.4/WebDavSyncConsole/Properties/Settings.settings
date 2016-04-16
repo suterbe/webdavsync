@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WebDavSyncConsole.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebDavServerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://elearning.hslu.ch</Value>
+    </Setting>
+    <Setting Name="WebDavServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/ilias/webdav.php/hslu/ref_696271/TA.PRG2.F0903/Dateiaustausch/Projekt/Gruppe13/</Value>
+    </Setting>
+    <Setting Name="WebDavServerUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tfsuter</Value>
+    </Setting>
+    <Setting Name="WebDavServerPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">JS_+U4JK</Value>
+    </Setting>
+    <Setting Name="LocalSyncPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Daten\Sync\Gruppe 13\</Value>
+    </Setting>
+    <Setting Name="ConflictOverWriteFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSync", "WebDavSync\WebDavSync.csproj", "{9C4621DA-7188-426F-9A66-154FA544101E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSyncGUI", "WebDavSyncGUI\WebDavSyncGUI.csproj", "{48AF824D-E9D6-437B-810A-3C057CE4AE89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Presentation", "01 Presentation", "{3A3A63D9-6CED-40D1-824B-B4BE5D620ED2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Application", "02 Application", "{45A438AB-2E14-4084-B9F8-8C164D3138E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDavSync.UnitTests", "WebDavSync.UnitTests\WebDavSync.UnitTests.csproj", "{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4621DA-7188-426F-9A66-154FA544101E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48AF824D-E9D6-437B-810A-3C057CE4AE89} = {3A3A63D9-6CED-40D1-824B-B4BE5D620ED2}
+		{9C4621DA-7188-426F-9A66-154FA544101E} = {45A438AB-2E14-4084-B9F8-8C164D3138E6}
+		{5DEE336A-FC32-41D8-9C26-34ED78C0CDB6} = {45A438AB-2E14-4084-B9F8-8C164D3138E6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
