@@ -1,1 +1,0 @@
-E:\Daten\dNet\WebDavSync\trunk\src\WebDavSyncGUI\bin\Debug\WebDavSyncGUI.exe.config

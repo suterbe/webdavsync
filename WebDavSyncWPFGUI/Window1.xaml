@@ -1,0 +1,6 @@
+﻿<Window x:Class="WebDavSyncWPFGUI.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window1" Height="279" Width="609">
+    <TreeView Height="234" Name="treeView1" Width="134" />
+</Window>
